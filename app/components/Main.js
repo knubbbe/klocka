@@ -5,29 +5,35 @@ var Link = ReactRouter.Link;
 var firebaseUtils = require('../utils/firebaseUtils');
 
 var Main = React.createClass({
-  getInitialState: function(){
+
+  getInitialState: function() {
     return {
       loggedIn: firebaseUtils.isLoggedIn()
-    }
+    };
   },
-  handleLogout: function(loggedIn){
+
+  handleLogout: function(loggedIn) {
     this.setState({
       loggedIn: loggedIn
     });
   },
-  componentWillMount: function(){
+
+  componentWillMount: function() {
     firebaseUtils.onChange = this.handleLogout;
   },
-  render: function(){
+
+  render: function() {
     var loginOrOut;
     var register;
-    if(this.state.loggedIn){
+
+    if (this.state.loggedIn) {
       loginOrOut = <li><Link to="/logout" className="navbar-brand">Logout</Link></li>;
-      register = null
+      register = null;
     } else {
       loginOrOut = <li><Link to="/login" className="navbar-brand">Login</Link></li>;
       register = <li><Link to="/register" className="navbar-brand"> Register </Link></li>;
     }
+
     return (
       <span>
         <nav className="navbar navbar-default navbar-static-top">
@@ -49,7 +55,7 @@ var Main = React.createClass({
           </div>
         </div>
       </span>
-    )
+    );
   }
 });
 

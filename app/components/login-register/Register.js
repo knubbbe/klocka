@@ -2,28 +2,34 @@ var React = require('react');
 var firebaseUtils = require('../../utils/firebaseUtils');
 
 var Register = React.createClass({
+
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
-  getInitialState: function(){
+
+  getInitialState: function() {
     return {
       error: false
-    }
+    };
   },
-  handleSubmit: function(e){
+
+  handleSubmit: function(e) {
     e.preventDefault();
     var email = this.refs.email.value;
     var pw = this.refs.pw.value;
-    firebaseUtils.createUser({email: email, password: pw}, function(err){
-      if(! err ){
+
+    firebaseUtils.createUser({ email: email, password: pw }, function(err) {
+      if (!err) {
           this.context.router.replace('/');
       } else {
         this.setState({error: err});
       }
     }.bind(this));
   },
-  render: function(){
+
+  render: function() {
     var errors = this.state.error ? <p> {this.state.error} </p> : '';
+
     return (
       <div className="col-sm-6 col-sm-offset-3">
         <h1> Register </h1>
@@ -40,7 +46,7 @@ var Register = React.createClass({
           <button type="submit" className="btn btn-primary">Register</button>
         </form>
       </div>
-    )
+    );
   }
 });
 
